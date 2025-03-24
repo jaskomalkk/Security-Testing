@@ -22,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         language: [ "c-cpp", "csharp", "go", "java-kotlin", "javascript-typescript", "python", "ruby", "swift" ]
-        build-mode: [ "autobuild" ]  # Changed from "automatic" to "autobuild"
+        build-mode: [ "autobuild" ]  # Fix: Removed invalid `include`
 
     steps:
       - name: Checkout repository
@@ -37,16 +37,11 @@ jobs:
       - if: matrix.build-mode == 'manual'
         shell: bash
         run: |
-          echo 'If you are using a "manual" build mode for one or more of the' \
-            'languages you are analyzing, replace this with the commands to build' \
-            'your code, for example:'
-          echo '  make bootstrap'
-          echo '  make release'
+          echo 'If you are using a "manual" build mode, replace this with your build commands.'
+          echo 'Example: make bootstrap && make release'
           exit 1
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:${{ matrix.language }}"
-
-
