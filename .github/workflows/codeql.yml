@@ -22,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         language: [ "c-cpp", "csharp", "go", "java-kotlin", "javascript-typescript", "python", "ruby", "swift" ]
-        build-mode: [ "automatic" ]  # You can adjust this based on your build setup
+        build-mode: [ "autobuild" ]  # Changed from "automatic" to "autobuild"
 
     steps:
       - name: Checkout repository
@@ -48,4 +48,5 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:${{ matrix.language }}"
+
 
